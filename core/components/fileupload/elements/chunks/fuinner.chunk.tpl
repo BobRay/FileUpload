@@ -1,0 +1,1 @@
+    <p class="fu-inner-line">[[+fu-caption]][[+fu-number]] <input name="userfile[]" type="file" /></p>
