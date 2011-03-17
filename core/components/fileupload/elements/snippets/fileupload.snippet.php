@@ -47,7 +47,11 @@
 /**
  Properties:
 
- @property outertpl (string) - Names of outer Tpl chunk; default: fuoutertpl.
+ @property outertpl (string) - Name of outer Tpl chunk; default: fuOuterTpl.
+
+ @property messagetpl (string) - Name of message Tpl chunk; default: fuMessageTpl.
+
+ @property innertpl (string) - Name of inner Tpl chunk; default: fuInnerTpl.
 
  @property path (string) - Path to the directory for uploaded files;
     required if &uploadTV is empty; will be appended to the base_path
@@ -95,6 +99,10 @@ $innertpl = $modx->getOption('innertpl',$sp,'');
 if (empty($innertpl)) {
     return $modx->lexicon('fu-error_no_inner_tpl');
 }
+$messagetpl = $modx->getOption('messagetpl',$sp,'');
+if (empty($messagetpl)) {
+    return $modx->lexicon('fu_error_no_message_tpl');
+}
 $maxsize = $modx->getOption('maxsize',$sp,'');
 if (empty($maxsize)) {
     $maxsize = $modx->getOption('upload_maxsize',null,'');
@@ -116,6 +124,7 @@ if (empty($createpath))   $createpath = false;
 $filefields = $modx->getOption('filefields',$sp,'');
 $filefields = $filefields == 0 ? 5 : $filefields;
 
+
 // Function taken from php.net
 if (!function_exists('RecursiveMkdir'))
 {
@@ -135,21 +144,35 @@ if (!function_exists('RecursiveMkdir'))
    }
 }
 
+function setError($msg, &$presubmitError) {
+    global $modx;
+    $modx->setPlaceholder('fu.message',$modx->lexicon($msg));
+    $modx->setPlaceholder('fu.class','fu-error-presubmit');
+    $presubmitError = true;
+}
+
 $output = '';
+$presubmitError = false;
+
+
 //$canupload = $uploadgroups=='' || $modx->isMemberOfWebGroup(explode(",", $uploadgroups));
 $canupload = empty($uploadgroups) || $modx->user->isMember($uploadgroups);
 
 
 if (!$canupload) {
-  return $modx->lexicon('fu_error_permission_denied');
+  setError('fu_error_permission_denied',$presubmitError);
 }
 
 if (empty($extensions)) {
-  return $modx->lexicon('fu_error_no_extensions');
+  setError('fu_error_no_extensions',$presubmitError);
 }
 
 
 // Initialise
+
+$cssPath = MODX_ASSETS_URL . 'components/fileupload/css/fileupload.css';
+$modx->regClientCSS($cssPath);
+
 if (!empty($sp['uploadtv'])) {
     $tvObj = $modx->getobject('modTemplateVar',array('name'=>$sp['uploadtv']));
     $path = $modx->getOption('base_path',null,'') . $tvObj->getValue();
@@ -158,27 +181,26 @@ if (!empty($sp['uploadtv'])) {
 }
 
 if (empty($path)) {
-    return $modx->lexicon('fu_error_no_path');
+    setError('fu_error_no_path',$presubmitError);
 }
 
-
 // Check if the path exists
-if (!is_dir($path))
-{
-  if ($createpath)
-  {
+if (!is_dir($path)) {
+  if ($createpath) {
     RecursiveMkdir($path);
-  }
-  else
-  {
-    return $modx->lexicon('fu_error_invalid_path');
+  } else {
+    setError('fu_error_invalid_path',$presubmitError);
   }
 }
 
 if (!is_dir($path)) {
-    return $modx->lexicon('fu_error_create_path');
+    setError('fu_error_create_path', $presubmitError);
 }
 
+
+if ($presubmitError) {
+    return $modx->getChunk($messagetpl);
+}
 
 
 // Generate a unique code for this form so if there are multiple
@@ -186,66 +208,58 @@ if (!is_dir($path)) {
 $hash = md5($maxsize.$uploadgroup.$extensions.$path);
 
 // Check if something was uploaded and move it to the correct place.
-if (isset($_FILES['userfile']) && $_POST['formid'] == $hash)
-{
+if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
+
   $fileoutput = '';
   $ext_array = explode(',', $extensions);
 
   // Handle all uploaded files
-  for ($i=0; $i<count($_FILES['userfile']['name']); $i++)
-  {
+  for ($i=0; $i<count($_FILES['userfile']['name']); $i++)  {
     // Skip "empty" files
-    if ($_FILES['userfile']['name'][$i] == '')
-    {
+    if ($_FILES['userfile']['name'][$i] == '') {
       continue;
     }
-
-    if ($_FILES['userfile']['error'][$i] != 0)
-    {
-      // An error occured
+    $success = false;
+    if ($_FILES['userfile']['error'][$i] != 0) {
+      // An error occurred
       $fileoutput = $modx->lexicon("fu_error_{$_FILES['userfile']['error'][$i]}");
-    }
-    else
-    {
+    } else {
       //Handle the uploaded file
       $uploadfile = $path.basename($_FILES['userfile']['name'][$i]);
 
-      if ($extensions!='' && !in_array(pathinfo($uploadfile, PATHINFO_EXTENSION), $ext_array))
-      {
+      if ($extensions!='' && !in_array(pathinfo($uploadfile, PATHINFO_EXTENSION), $ext_array)) {
         // Extension is not allowed
         $fileoutput = $modx->lexicon('fu_error_extension');
-      }
-      else if ($_FILES['userfile']['size'][$i] > $maxsize)
-      {
+      } else if ($_FILES['userfile']['size'][$i] > $maxsize) {
         // File is too big
         $fileoutput = $modx->lexicon('fu_error_2');
-      }
-      else if ($_FILES['userfile']['size'][$i] == 0)
-      {
+      } else if ($_FILES['userfile']['size'][$i] == 0) {
         // Invalid filesize
         $fileoutput = $modx->lexicon('fu_error_file');
-      }
-      else if (file_exists($uploadfile))
-      {
+      } else if (file_exists($uploadfile)) {
         // Destination file already exists
         $fileoutput = $modx->lexicon('fu_error_name');
-      }
-      else if (move_uploaded_file($_FILES['userfile']['tmp_name'][$i], $uploadfile))
-      {
+      } else if (move_uploaded_file($_FILES['userfile']['tmp_name'][$i], $uploadfile)) {
         // Moved the uploaded file to the upload folder
         $fileoutput = $modx->lexicon('fu_uploaded');
-      }
-      else
-      {
+        $success = true;
+      } else {
         // Something unexpected happened
-        $fileoutput = $$modx->lexicon('fu_error');
+        $fileoutput = $modx->lexicon('fu_error');
       }
     }
 
     $fields = array('[[+filename]]', '[[+maxsize]]', '[[+phpmaxsize]]', '[[+extensions]]' );
     $values = array($_FILES['userfile']['name'][$i], $maxsize, ini_get('upload_max_filesize').'B', $extensions);
-
-    $output .= str_replace($fields, $values, $fileoutput);
+    $fileoutput = str_replace($fields, $values, $fileoutput);
+    $tpl = $modx->getChunk($messagetpl);
+    $msg = str_replace('[[+fu.message]]',$fileoutput, $tpl);
+    if ($success) {
+        $msg = str_replace('[[+fu.class]]','fu-success',$msg);
+    } else {
+        $msg = str_replace('[[+fu.class]]','fu-error',$msg);
+    }
+    $output .= $msg;
   }
 }
 
@@ -262,7 +276,7 @@ for ($i=1;$i<= $filefields;$i++) {
     $inner .= "\n" . $s;
 }
 
-$formtpl = str_replace('[[+fu-inner]]',$inner, $formtpl);
+//$formtpl = str_replace('[[+fu-inner]]',$inner, $formtpl);
 
 // Stop if no template is loaded
 if (empty($formtpl)) {
@@ -271,9 +285,9 @@ if (empty($formtpl)) {
 }
 
 // Replace the placeholders and add the form to the output
-$fields = array('[[+fileupload.maxsize]]', '[[+fileupload.formid]]', '[[+fileupload.extensions]]');
-$values = array($maxsize, $hash, $extensions);
+$fields = array('[[+fileupload.maxsize]]', '[[+fileupload.formid]]', '[[+fileupload.extensions]]','[[+fu-inner]]','[[+fu-message]]');
+$values = array($maxsize, $hash, $extensions, $inner, $output);
 
-$output .= str_replace($fields, $values, $formtpl);
+$output = str_replace($fields, $values, $formtpl);
 
 return $output;

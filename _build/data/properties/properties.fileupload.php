@@ -28,6 +28,14 @@ $properties = array(
         'value' => 'fuInnerTpl',
         'lexicon' => 'fileupload:properties',
     ),
+    array(
+        'name' => 'messagetpl',
+        'desc' => 'fu_messagetpl_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'fuMessageTpl',
+        'lexicon' => 'fileupload:properties',
+    ),
      array(
         'name' => 'maxsize',
         'desc' => 'fu_maxsize_desc',

@@ -44,5 +44,12 @@ $chunks[2]->fromArray(array(
     'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/fuouter.chunk.tpl'),
     'properties' => '',
 ),'',true,true);
-
+$chunks[3]= $modx->newObject('modChunk');
+$chunks[3]->fromArray(array(
+    'id' => 3,
+    'name' => 'fuMessageTpl',
+    'description' => 'FileUpload feedback message Tpl chunk',
+    'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/fumessage.chunk.tpl'),
+    'properties' => '',
+),'',true,true);
 return $chunks;

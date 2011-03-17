@@ -1,4 +1,5 @@
 <div class="fu-outer">
+    [[+fu-message]]
     <form enctype="multipart/form-data" action="[[~[[*id]]]]" method="post">
         <input type="hidden" name="formid" value="[[+fileupload.formid]]" />
         <!-- MAX_FILE_SIZE must precede the file input field -->

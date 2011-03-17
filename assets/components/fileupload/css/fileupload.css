@@ -1,0 +1,59 @@
+/* fileupload css file */
+
+div.fu-error-presubmit {
+    font-family: arial, sans-serif;
+    font-size:20;
+    color:red;
+    background-color:#dcdcdc;
+    margin: 15;
+    padding: 15;
+    text-align: left;
+    width: 30%
+}
+div.fu-outer {
+    font-family: arial, sans-serif;
+    font-size:20;
+    color:black;
+    background-color:#dcdcdc;
+    margin:30px;
+    padding:20;
+}
+
+div.fu-outer p {
+    color:black;
+    font-size: 20;
+    margin:5,15,5,30;
+    padding: 5;
+}
+div.fu-outer input {
+    padding:5;
+    margin:5;
+    font-size:20;
+    background-color:white;
+}
+
+div.fu-outer p.fu-inner-line {
+   font-size:20;
+   margin:5;
+   padding:5;
+}
+
+div.fu-error {
+    font-size:20;
+    color:red;
+    background-color:#dcdcdc;
+    text-align:left;
+    margin:5,15,5,30;
+    padding: 5;
+}
+div.fu-success {
+    font-size:20;
+    color:black;
+    background-color:#dcdcdc;
+    text-align:left;
+    margin:5,15,5,30;
+    padding: 5;
+    width:30%;
+   
+}
+

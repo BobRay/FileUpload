@@ -27,24 +27,25 @@
  */
 
 // Language specific messages
-$_lang['fu_uploaded']='<strong>[[+filename]] was successfully uploaded.</strong><br />';
+$_lang['fu_uploaded']='[[+filename]] was successfully uploaded.';
 $_lang['fu_input_caption'] = 'File ';
 $_lang['fu_upload_button_caption'] = 'Upload File(s)';
-$_lang['fu_error']='<strong>An error occurred when uploading the file.</strong><br />';
-$_lang['fu_error_no_outer_tpl']='<strong>The outer template for the form could no be loaded. Check the &amp;outertpl setting.</strong><br />';
-$_lang['fu_error_no_inner_tpl']='<strong>The inner template for the form could no be loaded. Check the &amp;innertpl setting.</strong><br />';
-$_lang['fu_error_file']='<strong>[[+filename]] is invalid.</strong><br />'; // Size is 0 bytes
-$_lang['fu_error_name']='<strong>A file with the name [[+filename]] already exists.</strong><br />';
-$_lang['fu_error_no_path']='<strong>No path to store the files was given.</strong><br />';
-$_lang['fu_error_permission_denied']='<strong>You do not have permission to upload files.</strong><br />';
-$_lang['fu_error_create_path']='<strong>could not create path to upload directory.</strong><br />';
-$_lang['fu_error_1']= '<strong>[[+filename]] is too big, the size must be smaller than the PHP limit: [[+phpmaxsize]] bytes.</strong><br />'; // Bigger than upload_max_filesize directive in php.ini
-$_lang['fu_error_2']= '<strong>[[+filename]] is larger thant the allowed FileUpload limit: [[+maxsize]] bytes.</strong><br />'; // Bigger than specified by $maxsize setting
-$_lang['fu_error_3']= '<strong>[[+filename]] was only partially uploaded</strong><br />';
-$_lang['fu_error_4']= '<strong>No file was uploaded</strong><br />';
-$_lang['fu_error_6']= '<strong>Missing a temporary folder</strong><br />';
-$_lang['fu_error_extension'] = '<strong>Only files with extension(s) "[[+extensions]]" are allowed.</strong><br />';
-$_lang['fu_error_no_extensions'] = '<strong>You have to specify what file extensions are allowed to be uploaded</strong>';
-$_lang['fu_error_invalid_path'] = '<strong>The provided path is invalid</strong>';
+$_lang['fu_error']='An error occurred when uploading the file.';
+$_lang['fu_error_no_outer_tpl']='The outer template for the form could not be loaded. Check the &amp;outertpl setting.';
+$_lang['fu_error_no_message_tpl']='The message template for the form could not be loaded. Check the &amp;messagetpl setting.';
+$_lang['fu_error_no_inner_tpl']='The inner template for the form could no be loaded. Check the &amp;innertpl setting.';
+$_lang['fu_error_file']='[[+filename]] is invalid.'; // Size is 0 bytes
+$_lang['fu_error_name']='A file with the name [[+filename]] already exists.';
+$_lang['fu_error_no_path']='No path to store the files was given.';
+$_lang['fu_error_permission_denied']='You do not have permission to upload files.';
+$_lang['fu_error_create_path']='could not create path to upload directory.';
+$_lang['fu_error_1']= '[[+filename]] is too big, the size must be smaller than the PHP limit: [[+phpmaxsize]] bytes.'; // Bigger than upload_max_filesize directive in php.ini
+$_lang['fu_error_2']= '[[+filename]] is larger thant the allowed FileUpload limit: [[+maxsize]] bytes.'; // Bigger than specified by $maxsize setting
+$_lang['fu_error_3']= '[[+filename]] was only partially uploaded';
+$_lang['fu_error_4']= 'No file was uploaded';
+$_lang['fu_error_6']= 'Missing a temporary folder';
+$_lang['fu_error_extension'] = '[[+filename]]: Disallowed Extension.';
+$_lang['fu_error_no_extensions'] = 'You have to specify what file extensions are allowed to be uploaded';
+$_lang['fu_error_invalid_path'] = 'The provided path is invalid';
 
 
