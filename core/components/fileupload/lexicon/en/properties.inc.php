@@ -30,7 +30,7 @@
 
 $_lang['fu_outertpl_desc'] = 'Name of the FileUpload outer Tpl chunk; default: fuoutertpl';
 $_lang['fu_innertpl_desc'] = 'Name of the FileUpload inner Tpl chunk; default: fuinnertpl';
-$_lang['fu_maxsize_desc'] = 'Maximum file size; default: upload_maxsize system setting';
+$_lang['fu_maxsize_desc'] = 'Maximum file size (in bytes); default: upload_maxsize system setting (1048576 bytes - one megabyte)';
 $_lang['fu_uploadgroups_desc'] = "(optional) Comma-separated list of user groups allowed to upload files; default: '' (anyone can upload)";
 $_lang['fu_extensions_desc'] = '(optional) Comma-separated list of allowed file extensions; defaults to upload_files system setting';
 $_lang['fu_createpath_desc'] = "(optional) Create &amp;path if it does not exist; default: 'No'";
