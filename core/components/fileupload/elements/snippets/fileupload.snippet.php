@@ -76,7 +76,9 @@
  @property createpath (boolean) - Create path for upload directory if it
    does not exist. Default: false.
 
- @property filefields (int) - Number of file input fields to show; default: 5
+ @property filefields (int) - Number of file input fields to show; default: 5.
+
+ @property cssfile (string) - Name of css file to use; default: fileupload.css.
  */
 
 
@@ -170,7 +172,8 @@ if (empty($extensions)) {
 
 // Initialise
 
-$cssPath = MODX_ASSETS_URL . 'components/fileupload/css/fileupload.css';
+$cssFile = $modx->getOption('cssfile', $sp,'fileupload.css');
+$cssPath = MODX_ASSETS_URL . 'components/fileupload/css/' . $cssFile;
 $modx->regClientCSS($cssPath);
 
 if (!empty($sp['uploadtv'])) {

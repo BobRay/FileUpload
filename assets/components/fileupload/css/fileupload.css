@@ -8,7 +8,7 @@ div.fu-error-presubmit {
     margin: 15;
     padding: 15;
     text-align: left;
-    width: 30%
+    width: 50%
 }
 div.fu-outer {
     font-family: arial, sans-serif;
@@ -45,6 +45,7 @@ div.fu-error {
     text-align:left;
     margin:5,15,5,30;
     padding: 5;
+    width:50%;
 }
 div.fu-success {
     font-size:20;
@@ -53,7 +54,7 @@ div.fu-success {
     text-align:left;
     margin:5,15,5,30;
     padding: 5;
-    width:30%;
+    width:50%;
    
 }
 

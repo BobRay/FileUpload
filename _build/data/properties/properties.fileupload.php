@@ -92,6 +92,14 @@ $properties = array(
         'value' => '',
         'lexicon' => 'fileupload:properties',
     ),
+    array(
+        'name' => 'cssfile',
+        'desc' => 'fu_cssfile_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'fileupload.css',
+        'lexicon' => 'fileupload:properties',
+    ),
  );
 
 return $properties;
