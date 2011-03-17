@@ -33,7 +33,7 @@
  */
 // return include "c:/xampp/htdocs/addons/assets/mycomponents/fileupload/core/components/fileupload/elements/snippets/fileupload.snippet.php";
 /*
- * FileUpload snippet - Version 1.0
+ * FileUpload snippet - Version 1.0.0
  * Original snippet by Michel van de Wetering
  * Refactored for MODx Revolution by Bob Ray
  *
@@ -67,7 +67,7 @@
     upload_maxsize system setting.  Note that the maximum filesize can
     also be limited by the upload_max_filesize setting in php.ini
 
- @property $extensions (string) - comma-separated list of allowed
+ @property extensions (string) - comma-separated list of allowed
     file extensions; defaults to upload_files system setting.
 
  @property uploadgroups (string) - Comma-separated list of user groups
