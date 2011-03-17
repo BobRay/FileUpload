@@ -99,7 +99,11 @@ $maxsize = $modx->getOption('maxsize',$sp,'');
 if (empty($maxsize)) {
     $maxsize = $modx->getOption('upload_maxsize',null,'');
 }
-$uploadgroups = $modx->getOption('uploadGroups',$sp,'');
+$uploadgroups = $modx->getOption('uploadgroups',$sp,'');
+
+if (strstr($uploadgroups, ',')) {
+    $uploadgroups = explode(',',$uploadgroups);
+}
 
 $extensions = $modx->getOption('extensions', $sp, '');
 if (empty($extensions)) {
