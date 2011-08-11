@@ -79,6 +79,9 @@
  @property filefields (int) - Number of file input fields to show; default: 5.
 
  @property cssfile (string) - Name of css file to use; default: fileupload.css.
+
+ @property allowoverwrite (boolean) - Set to `1` to allow overwriting existing files.
+
  */
 
 
@@ -126,6 +129,8 @@ if (empty($createpath))   $createpath = false;
 $filefields = $modx->getOption('filefields',$sp,'');
 $filefields = $filefields == 0 ? 5 : $filefields;
 
+
+$allowoverwrite = $modx->getOption('allowoverwrite', $sp,'');
 
 // Function taken from php.net
 if (!function_exists('RecursiveMkdir'))
@@ -239,7 +244,7 @@ if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
       } else if ($_FILES['userfile']['size'][$i] == 0) {
         // Invalid filesize
         $fileoutput = $modx->lexicon('fu_error_file');
-      } else if (file_exists($uploadfile)) {
+      } else if (file_exists($uploadfile) && empty($allowoverwrite)) {
         // Destination file already exists
         $fileoutput = $modx->lexicon('fu_error_name');
       } else if (move_uploaded_file($_FILES['userfile']['tmp_name'][$i], $uploadfile)) {
