@@ -40,12 +40,12 @@ $_lang['fu_error_no_path']='No path to store the files was given.';
 $_lang['fu_error_permission_denied']='You do not have permission to upload files.';
 $_lang['fu_error_create_path']='could not create path to upload directory.';
 $_lang['fu_error_1']= '[[+filename]] is too big, the size must be smaller than the PHP limit: [[+phpmaxsize]] bytes.'; // Bigger than upload_max_filesize directive in php.ini
-$_lang['fu_error_2']= '[[+filename]] is larger thant the allowed FileUpload limit: [[+maxsize]] bytes.'; // Bigger than specified by $maxsize setting
+$_lang['fu_error_2']= '[[+filename]] is larger than the allowed FileUpload limit: [[+maxsize]] bytes.'; // Bigger than specified by $maxsize setting
 $_lang['fu_error_3']= '[[+filename]] was only partially uploaded';
 $_lang['fu_error_4']= 'No file was uploaded';
 $_lang['fu_error_6']= 'Missing a temporary folder';
 $_lang['fu_error_extension'] = '[[+filename]]: Disallowed Extension.';
 $_lang['fu_error_no_extensions'] = 'You have to specify what file extensions are allowed to be uploaded';
 $_lang['fu_error_invalid_path'] = 'The provided path is invalid';
-
+$_lang['fu_error_bad_targetfile_use'] = 'Cannot use targetfile with multiple-file upload.';
 

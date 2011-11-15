@@ -36,6 +36,7 @@ $_lang['fu_uploadgroups_desc'] = "(optional) Comma-separated list of user groups
 $_lang['fu_extensions_desc'] = '(optional) Comma-separated list of allowed file extensions; defaults to upload_files system setting';
 $_lang['fu_createpath_desc'] = "(optional) Create &amp;path if it does not exist; default: 'No'";
 $_lang['fu_path_desc'] = "(required if &amp;uploadtv is not set) path to directory for uploaded files; default: ''";
+$_lang['fu_targetfile_desc'] = "(optional) Name of the target file for the upload, will be appended to &amp;path; default: '' (use the original file name)";
 $_lang['fu_uploadtv_desc'] = '(required if &amp;path is not set) Name of TV holding the upload path';
 $_lang['fu_filefields_desc'] = '(optional) Number of file input fields to show; default: 5';
 
