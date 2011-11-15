@@ -1,11 +1,10 @@
 <?php
-
 /**
  * FileUpload
  *
  * @author Michel van de Wetering
  * @author Bob Ray <http://bobsguides.com>
- * 3/15/11
+ * 11/15/11
  *
  * FileUpload is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -59,6 +58,9 @@
 
     Example: &path=`assets/uploads/`
 
+ @property targetfile (string) - Name of the target file for the upload; default: ''
+    (use the original file name).
+
  @property uploadtv (string) - Name of a TV holding the upload path; required
     if &path is empty. ; path in the TV will be appended to the base_path
     system setting and should not start with a slash.
@@ -102,7 +104,7 @@ if (empty($outertpl)) {
 }
 $innertpl = $modx->getOption('innertpl',$sp,'');
 if (empty($innertpl)) {
-    return $modx->lexicon('fu-error_no_inner_tpl');
+    return $modx->lexicon('fu_error_no_inner_tpl');
 }
 $messagetpl = $modx->getOption('messagetpl',$sp,'');
 if (empty($messagetpl)) {
@@ -129,6 +131,14 @@ if (empty($createpath))   $createpath = false;
 $filefields = $modx->getOption('filefields',$sp,'');
 $filefields = $filefields == 0 ? 5 : $filefields;
 
+$targetfile = $modx->getOption('targetfile', $sp, '');
+
+// If more then one file will be uploaded the targetfile approach does not
+// make sense.
+if (($filefields > 1) and ($targetfile != ''))
+{
+    return $modx->lexicon('fu_error_bad_targetfile_use');
+}
 
 $allowoverwrite = $modx->getOption('allowoverwrite', $sp,'');
 
@@ -174,22 +184,25 @@ if (empty($extensions)) {
   setError('fu_error_no_extensions',$presubmitError);
 }
 
-
 // Initialise
 
 $cssFile = $modx->getOption('cssfile', $sp,'fileupload.css');
 $cssPath = MODX_ASSETS_URL . 'components/fileupload/css/' . $cssFile;
 $modx->regClientCSS($cssPath);
 
+if (empty($path) and !empty($targetfile)) {
+    $path = dirname($targetfile) . '/';
+}
+
+if (empty($path) and empty($sp['uploadtv'])) {
+    setError('fu_error_no_path',$presubmitError);
+}
+
 if (!empty($sp['uploadtv'])) {
     $tvObj = $modx->getobject('modTemplateVar',array('name'=>$sp['uploadtv']));
     $path = $modx->getOption('base_path',null,'') . $tvObj->getValue();
 } else {
     $path = $modx->config['base_path'].$path;
-}
-
-if (empty($path)) {
-    setError('fu_error_no_path',$presubmitError);
 }
 
 // Check if the path exists
@@ -232,8 +245,12 @@ if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
       // An error occurred
       $fileoutput = $modx->lexicon("fu_error_{$_FILES['userfile']['error'][$i]}");
     } else {
-      //Handle the uploaded file
-      $uploadfile = $path.basename($_FILES['userfile']['name'][$i]);
+      // Handle the uploaded file.
+      if ($targetfile == '') {
+        $uploadfile = $path.basename($_FILES['userfile']['name'][$i]);
+      } else {
+        $uploadfile = $path.basename($targetfile);
+      }
 
       if ($extensions!='' && !in_array(pathinfo($uploadfile, PATHINFO_EXTENSION), $ext_array)) {
         // Extension is not allowed
@@ -299,3 +316,4 @@ $values = array($maxsize, $hash, $extensions, $inner, $output);
 $output = str_replace($fields, $values, $formtpl);
 
 return $output;
+
