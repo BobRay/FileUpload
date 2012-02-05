@@ -1,0 +1,148 @@
+<p>
+    This snippet is for use with MODx Revolution. FileUpload can be used to upload a variable number of files in the front end of your site. FileUpload is based on Michel van de Wetering's FileUpload snippet for MODx Evolution. It has been refactored for MODx Revolution and some new capabilities have been added.
+</p>
+
+<h3>Installing FileUpload for MODx Revolution</h3>
+
+<p>
+Go to System | Package Management on the main menu in the MODx Manager and click on the "Download Extras" button. That will take you to the Revolution Repository (AKA Web Transport Facility). Put FileUpload in the search box and press Enter. Click on the "Download" button, and when it changes to "Downloaded," click on the "Finish" button. That should bring you back to your Package Management grid. Right click on FileUpload and select "Install Package." The FileUpload snippet should now be installed.</p>
+
+<h3>Using FileUpload</h3>
+
+<p>
+You can place a file upload form on any page by inserting the following tag:</p>
+
+<fixedpre>[[!FileUpload]]</fixedpre>
+
+<p>
+    The form will present a number of file upload fields. The user can browse to each file to be uploaded. When the user clicks on the &quot;Upload File(s)&quot; button, the snippet will attempt to upload the files. The user will get feedback on the success or failure of the upload for each file. You can place more than one upload form on a page simply by repeating the snippet tag. Each form can send files to a separate directory.
+</p>
+
+<p>
+You can control the number of file upload fields shown on each form with the &amp;filefields property. There is no limit on the number of fields. The default is 5. You restrict the groups who can upload with the &amp;uploadgroups property. If you leave out that property, anyone can upload. The &amp;path property specifies the directory where the uploaded files will be placed. The path you specify will be appended to the value in the assets_path System Setting and your path should not have a slash at the beginning. If you leave out the &amp;path property, the files will go to assets/uploads/ directory. Here is an example using those properties:
+</p>
+
+<pre>
+<fixedpre>
+[[!FileUpload?
+    &uploadfields=`20`
+    &uploadgroups=`Administrator,Editors,Subadmins`
+    &path=`uploads/mygallery/picnic/`
+]]
+</fixedpre>
+</pre>
+<h3>Using a TV to specify the path</h3>
+<p>
+Rather than supplying a &amp;path property, you can put the upload path in a template variable and send the name of that TV in the &amp;uploadtv property.
+</p>
+
+<p>For example, create a TV called "UploadPath" and attach it to the template for the pages where the snippet will be used. Edit those pages, and on the TV tab, set the upload path for that TV. The upload path you specify will be appended to the MODX base path. It should have a slash at the end, but not at the beginning.</p>
+
+<p>If you set the default value of the TV to something like this when you create it:</p>
+<pre>
+<fixedpre>@INHERIT some/path/</fixedpre>
+</pre>
+
+<p>You'll only have to set it for a parent document and the children will inherit the value. If the value is unset for some page, the default path will be used.</p>
+
+<p>To use the TV to specify where the uploaded files will go, do this in the FileUpload tag:</p>
+
+<pre>
+<fixedpre>[[!FileUpload? &uploadTv=`UploadPath`]]</fixedpre></pre>
+
+<p>Each page that uses the snippet will then have its own upload path, depending on the setting of the TV for that page.</p>
+
+<h3>File Size and File Extension Issues</h3>
+<p>The &amp;maxsize property limits the size of uploaded files, though any upload limit set in php.ini will also be respected. If you leave out this property, the upload_maxsize System Setting will be used. The &amp;extensions property specifies a comma-separated list of the allowable extensions for uploaded files. The list should have no spaces and no periods. If omitted, the value from the upload_files System Setting will be used. Note that the default value of upload_files is a long list, but at this writing, many of the standard image types are missing.
+</p>
+
+<h3>FileUpload Properties</h3>
+
+<table class="properties">
+    <tbody>
+        <tr>
+            <th>Property</th><th>Effect</th><th>Default</th>
+        </tr>
+        <tr>
+            <td>&amp;language</td>
+            <td>Language for error messages/prompts</td>
+            <td>`en`</td>
+        </tr>
+        <tr>
+            <td>&amp;outertpl</td>
+            <td>Name of outer Tpl chunk</td>
+            <td>`fuOuterTpl`</td>
+        </tr>
+                <tr>
+            <td>&amp;innertpl</td>
+            <td>Name of inner Tpl chunk</td>
+            <td>`fuInnerTpl`</td>
+        </tr>
+                <tr>
+            <td>&amp;messagetpl</td>
+            <td>Name of message Tpl chunk</td>
+            <td>`fuMessageTpl`</td>
+        </tr>
+        <tr>
+            <td>&amp;path</td>
+            <td>Directory for uploaded files</td>
+            <td>`assets/uploads/`</td>
+        </tr>
+        <tr>
+            <td>&amp;uploadtv</td>
+            <td>Name of a template variable holding the upload path</td>
+            <td>``</td>
+        </tr>
+                <tr>
+            <td class="note" colspan="3">Note: You must include either the &amp;path or the &amp;uploadtv property (but not both).
+        </tr>
+        <tr>
+            <td>&amp;maxsize</td>
+            <td>Maximum size for uploaded files in bytes</td>
+            <td>upload_maxsize System Setting</td>
+        </tr>
+        <tr>
+            <td>&amp;extensions</td>
+            <td>Comma-separated list of allowed extensions</td>
+            <td>upload_files System Setting</td>
+        </tr>
+        <tr>
+            <td>&amp;createpath</td>
+            <td>If set, upload directory will be created</td>
+            <td>`No`</td>
+        </tr>
+        <tr>
+            <td>&amp;uploadgroups</td>
+            <td>Comma-separated list of user groups who can upload files</td>
+            <td>``</td>
+        </tr>
+        <tr>
+            <td>&amp;filefields</td>
+            <td>Number of file input fields to show</td>
+            <td>`5`</td>
+        </tr>
+        <tr>
+            <td>&amp;cssfile</td>
+            <td>Name of CSS file to use</td>
+            <td>`fileupload.css`</td>
+        </tr>
+        <tr>
+            <td>&amp;allowoverwrite</td>
+            <td>Set to `1` to allow overwriting existing files</td>
+            <td>`0`</td>
+        </tr>
+        <tr>
+            <td>&amp;targetfile</td>
+            <td>Allows uploading a single specified file.</td>
+            <td>``</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Styling FileUpload Sections</h3>
+<p>
+The file: /assets/components/fileupload/css/fileupload.css contains the CSS for the upload form. You'll probably want to change it. Create a copy of the file in the same location called myfileupload.css and edit that file so your work won't be overwritten when you upgrade the component. Add the following property to your FileUpload snippet tag:<p>
+
+<pre><fixedpre>&cssfile=`myfileupload.css`</fixedpre></pre>
+<p>&nbsp;</p>
+

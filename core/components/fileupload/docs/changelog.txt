@@ -1,5 +1,9 @@
 Changelog for FileUpload
 
+FileUpload 1.0.2
+ - added targetfile property (jhegeman)
+ - added Dutch translation (jhegeman)
+
 FileUpload 1.0.1
 ----------------
  - Added allowoverwrite property to allow overwriting existing files

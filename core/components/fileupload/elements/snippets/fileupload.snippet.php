@@ -32,7 +32,7 @@
  */
 // return include "c:/xampp/htdocs/addons/assets/mycomponents/fileupload/core/components/fileupload/elements/snippets/fileupload.snippet.php";
 /*
- * FileUpload snippet - Version 1.0.1
+ * FileUpload snippet - Version 1.0.2
  * Original snippet by Michel van de Wetering
  * Refactored for MODx Revolution by Bob Ray
  *
