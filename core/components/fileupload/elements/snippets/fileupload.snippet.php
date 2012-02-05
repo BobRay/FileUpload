@@ -36,6 +36,7 @@
  * Original snippet by Michel van de Wetering
  * Refactored for MODx Revolution by Bob Ray
  *
+ * targetfile property and Dutch translation contributed by Jeroen Hegeman
  *
  * This snippet allows users to upload files to the web server. See the
  * instructions for the parameters needed to set it up. You can translate the
@@ -81,9 +82,9 @@
 
  @property allowoverwrite (boolean) - Set to `1` to allow overwriting existing files.
 
+ @property targetfile (string) - Name of the target file for the upload; default: ''
+
  */
-
-
 
 /* Setup the defaults */
 
@@ -180,6 +181,13 @@ $cssFile = $modx->getOption('cssfile', $sp,'fileupload.css');
 $cssPath = MODX_ASSETS_URL . 'components/fileupload/css/' . $cssFile;
 $modx->regClientCSS($cssPath);
 
+if (empty($path) and !empty($targetfile)) {
+    $path = dirname($targetfile) . '/';
+}
+if (empty($path) and empty($sp['uploadtv'])) {
+    setError('fu_error_no_path',$presubmitError);
+}
+
 if (!empty($sp['uploadtv'])) {
     $tvObj = $modx->getobject('modTemplateVar',array('name'=>$sp['uploadtv']));
     $path = $modx->getOption('base_path',null,'') . $tvObj->getValue();
@@ -187,9 +195,6 @@ if (!empty($sp['uploadtv'])) {
     $path = $modx->config['base_path'].$path;
 }
 
-if (empty($path)) {
-    setError('fu_error_no_path',$presubmitError);
-}
 
 // Check if the path exists
 if (!is_dir($path)) {
@@ -232,7 +237,11 @@ if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
       $fileoutput = $modx->lexicon("fu_error_{$_FILES['userfile']['error'][$i]}");
     } else {
       //Handle the uploaded file
-      $uploadfile = $path.basename($_FILES['userfile']['name'][$i]);
+    if ($targetfile == '') {
+        $uploadfile = $path.basename($_FILES['userfile']['name'][$i]);
+    } else {
+        $uploadfile = $path.basename($targetfile);
+    }
 
       if ($extensions!='' && !in_array(pathinfo($uploadfile, PATHINFO_EXTENSION), $ext_array)) {
         // Extension is not allowed
