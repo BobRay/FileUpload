@@ -29,11 +29,10 @@
   *
  * @package fileUpload
  *
- * @property
  */
 // return include "c:/xampp/htdocs/addons/assets/mycomponents/fileupload/core/components/fileupload/elements/snippets/fileupload.snippet.php";
 /*
- * FileUpload snippet - Version 1.0.0
+ * FileUpload snippet - Version 1.0.1
  * Original snippet by Michel van de Wetering
  * Refactored for MODx Revolution by Bob Ray
  *
@@ -102,7 +101,7 @@ if (empty($outertpl)) {
 }
 $innertpl = $modx->getOption('innertpl',$sp,'');
 if (empty($innertpl)) {
-    return $modx->lexicon('fu-error_no_inner_tpl');
+    return $modx->lexicon('fu_error_no_inner_tpl');
 }
 $messagetpl = $modx->getOption('messagetpl',$sp,'');
 if (empty($messagetpl)) {
