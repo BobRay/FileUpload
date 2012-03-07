@@ -87,7 +87,7 @@
  */
 
 /* Setup the defaults */
-
+/* @var $modx modX */
 $sp =& $scriptProperties;
 
 $language = $modx->getOption('language',$sp,'');
@@ -181,6 +181,8 @@ $cssFile = $modx->getOption('cssfile', $sp,'fileupload.css');
 $cssPath = MODX_ASSETS_URL . 'components/fileupload/css/' . $cssFile;
 $modx->regClientCSS($cssPath);
 
+$this->targetfile = empty ($sp['targetfile'])? '' : $sp['targetfile'];
+
 if (empty($path) and !empty($targetfile)) {
     $path = dirname($targetfile) . '/';
 }
@@ -237,10 +239,10 @@ if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
       $fileoutput = $modx->lexicon("fu_error_{$_FILES['userfile']['error'][$i]}");
     } else {
       //Handle the uploaded file
-    if ($targetfile == '') {
+    if ($this->targetfile == '') {
         $uploadfile = $path.basename($_FILES['userfile']['name'][$i]);
     } else {
-        $uploadfile = $path.basename($targetfile);
+        $uploadfile = $path.basename($this->targetfile);
     }
 
       if ($extensions!='' && !in_array(pathinfo($uploadfile, PATHINFO_EXTENSION), $ext_array)) {
@@ -286,6 +288,7 @@ $formtpl = str_replace('[[+fu_upload_button_caption]]',$modx->lexicon('fu_upload
 
 $innertpl = $modx->getChunk($innertpl);
 $caption = $modx->lexicon('fu_input_caption');
+$inner = '';
 for ($i=1;$i<= $filefields;$i++) {
     $s = str_replace('[[+fu-caption]]', $caption, $innertpl);
     $s = str_replace('[[+fu-number]]',$i,$s);
