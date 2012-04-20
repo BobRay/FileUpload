@@ -12,14 +12,16 @@ Go to System | Package Management on the main menu in the MODx Manager and click
 <p>
 You can place a file upload form on any page by inserting the following tag:</p>
 
-<fixedpre>[[!FileUpload]]</fixedpre>
+<pre><fixedpre>
+[[!FileUpload]]
+</fixedpre></pre>
 
 <p>
     The form will present a number of file upload fields. The user can browse to each file to be uploaded. When the user clicks on the &quot;Upload File(s)&quot; button, the snippet will attempt to upload the files. The user will get feedback on the success or failure of the upload for each file. You can place more than one upload form on a page simply by repeating the snippet tag. Each form can send files to a separate directory.
 </p>
 
 <p>
-You can control the number of file upload fields shown on each form with the &amp;filefields property. There is no limit on the number of fields. The default is 5. You restrict the groups who can upload with the &amp;uploadgroups property. If you leave out that property, anyone can upload. The &amp;path property specifies the directory where the uploaded files will be placed. The path you specify will be appended to the value in the assets_path System Setting and your path should not have a slash at the beginning. If you leave out the &amp;path property, the files will go to assets/uploads/ directory. Here is an example using those properties:
+You can control the number of file upload fields shown on each form with the <fixedpre>&filefields</fixedpre> property. There is no limit on the number of fields. The default is 5. You restrict the groups who can upload with the <fixedpre>&uploadgroups</fixedpre> property. If you leave out that property, anyone can upload. The <fixedpre>&path</fixedpre> property specifies the directory where the uploaded files will be placed. The path you specify will be appended to the value in the assets_path System Setting and your path should not have a slash at the beginning. If you leave out the <fixedpre>&path property</fixedpre>, the files will go to assets/uploads/ directory. Here is an example using those properties:
 </p>
 
 <pre>
@@ -33,27 +35,28 @@ You can control the number of file upload fields shown on each form with the &am
 </pre>
 <h3>Using a TV to specify the path</h3>
 <p>
-Rather than supplying a &amp;path property, you can put the upload path in a template variable and send the name of that TV in the &amp;uploadtv property.
+Rather than supplying a <fixedpre>&path property</fixedpre>, you can put the upload path in a template variable and send the name of that TV in the <fixedpre>&uploadtv</fixedpre> property.
 </p>
 
 <p>For example, create a TV called "UploadPath" and attach it to the template for the pages where the snippet will be used. Edit those pages, and on the TV tab, set the upload path for that TV. The upload path you specify will be appended to the MODX base path. It should have a slash at the end, but not at the beginning.</p>
 
 <p>If you set the default value of the TV to something like this when you create it:</p>
-<pre>
-<fixedpre>@INHERIT some/path/</fixedpre>
-</pre>
+<pre><fixedpre>
+@INHERIT some/path/
+</fixedpre></pre>
 
 <p>You'll only have to set it for a parent document and the children will inherit the value. If the value is unset for some page, the default path will be used.</p>
 
 <p>To use the TV to specify where the uploaded files will go, do this in the FileUpload tag:</p>
 
-<pre>
-<fixedpre>[[!FileUpload? &uploadTv=`UploadPath`]]</fixedpre></pre>
+<pre><fixedpre>
+[[!FileUpload? &uploadTv=`UploadPath`]]
+</fixedpre></pre>
 
 <p>Each page that uses the snippet will then have its own upload path, depending on the setting of the TV for that page.</p>
 
 <h3>File Size and File Extension Issues</h3>
-<p>The &amp;maxsize property limits the size of uploaded files, though any upload limit set in php.ini will also be respected. If you leave out this property, the upload_maxsize System Setting will be used. The &amp;extensions property specifies a comma-separated list of the allowable extensions for uploaded files. The list should have no spaces and no periods. If omitted, the value from the upload_files System Setting will be used. Note that the default value of upload_files is a long list, but at this writing, many of the standard image types are missing.
+<p>The <fixedpre>&maxsize</fixedpre> property limits the size of uploaded files, though any upload limit set in php.ini will also be respected. If you leave out this property, the upload_maxsize System Setting will be used. The <fixedpre>&extensions</fixedpre> property specifies a comma-separated list of the allowable extensions for uploaded files. The list should have no spaces and no periods. If omitted, the value from the upload_files System Setting will be used. Note that the default value of upload_files is a long list, but at this writing, many of the standard image types are missing.
 </p>
 
 <h3>FileUpload Properties</h3>
@@ -143,6 +146,7 @@ Rather than supplying a &amp;path property, you can put the upload path in a tem
 <p>
 The file: /assets/components/fileupload/css/fileupload.css contains the CSS for the upload form. You'll probably want to change it. Create a copy of the file in the same location called myfileupload.css and edit that file so your work won't be overwritten when you upgrade the component. Add the following property to your FileUpload snippet tag:<p>
 
-<pre><fixedpre>&cssfile=`myfileupload.css`</fixedpre></pre>
+<pre><fixedpre>
+&cssfile=`myfileupload.css`
+</fixedpre></pre>
 <p>&nbsp;</p>
-
