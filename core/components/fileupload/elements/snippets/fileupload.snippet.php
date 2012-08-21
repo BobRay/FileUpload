@@ -32,7 +32,7 @@
  */
 // return include "c:/xampp/htdocs/addons/assets/mycomponents/fileupload/core/components/fileupload/elements/snippets/fileupload.snippet.php";
 /*
- * FileUpload snippet - Version 1.0.2
+ * FileUpload snippet - Version 1.0.3
  * Original snippet by Michel van de Wetering
  * Refactored for MODx Revolution by Bob Ray
  *
@@ -133,8 +133,7 @@ $filefields = $filefields == 0 ? 5 : $filefields;
 $allowoverwrite = $modx->getOption('allowoverwrite', $sp,'');
 
 // Function taken from php.net
-if (!function_exists('RecursiveMkdir'))
-{
+if (!function_exists('RecursiveMkdir')) {
    function RecursiveMkdir($path)
    {
        // This function creates the specified directory using mkdir().  Note
@@ -150,14 +149,14 @@ if (!function_exists('RecursiveMkdir'))
        }
    }
 }
-
-function setError($msg, &$presubmitError) {
-    global $modx;
-    $modx->setPlaceholder('fu.message',$modx->lexicon($msg));
-    $modx->setPlaceholder('fu.class','fu-error-presubmit');
-    $presubmitError = true;
+if (!function_exists('fuSetError')) {
+    function fuSetError($msg, &$presubmitError) {
+        global $modx;
+        $modx->setPlaceholder('fu.message',$modx->lexicon($msg));
+        $modx->setPlaceholder('fu.class','fu-error-presubmit');
+        $presubmitError = true;
+    }
 }
-
 $output = '';
 $presubmitError = false;
 
@@ -167,11 +166,11 @@ $canupload = empty($uploadgroups) || $modx->user->isMember($uploadgroups);
 
 
 if (!$canupload) {
-  setError('fu_error_permission_denied',$presubmitError);
+  fuSetError('fu_error_permission_denied',$presubmitError);
 }
 
 if (empty($extensions)) {
-  setError('fu_error_no_extensions',$presubmitError);
+  fuSetError('fu_error_no_extensions',$presubmitError);
 }
 
 
@@ -187,7 +186,7 @@ if (empty($path) and !empty($targetfile)) {
     $path = dirname($targetfile) . '/';
 }
 if (empty($path) and empty($sp['uploadtv'])) {
-    setError('fu_error_no_path',$presubmitError);
+    fuSetError('fu_error_no_path',$presubmitError);
 }
 
 if (!empty($sp['uploadtv'])) {
@@ -203,12 +202,12 @@ if (!is_dir($path)) {
   if ($createpath) {
     RecursiveMkdir($path);
   } else {
-    setError('fu_error_invalid_path',$presubmitError);
+    fuSetError('fu_error_invalid_path',$presubmitError);
   }
 }
 
 if (!is_dir($path)) {
-    setError('fu_error_create_path', $presubmitError);
+    fuSetError('fu_error_create_path', $presubmitError);
 }
 
 
