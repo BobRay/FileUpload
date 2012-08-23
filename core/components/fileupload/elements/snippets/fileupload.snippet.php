@@ -32,7 +32,7 @@
  */
 // return include "c:/xampp/htdocs/addons/assets/mycomponents/fileupload/core/components/fileupload/elements/snippets/fileupload.snippet.php";
 /*
- * FileUpload snippet - Version 1.0.3
+ * FileUpload snippet - Version 1.0.4
  * Original snippet by Michel van de Wetering
  * Refactored for MODx Revolution by Bob Ray
  *
@@ -180,7 +180,7 @@ $cssFile = $modx->getOption('cssfile', $sp,'fileupload.css');
 $cssPath = MODX_ASSETS_URL . 'components/fileupload/css/' . $cssFile;
 $modx->regClientCSS($cssPath);
 
-$this->targetfile = empty ($sp['targetfile'])? '' : $sp['targetfile'];
+$targetfile = empty ($sp['targetfile'])? '' : $sp['targetfile'];
 
 if (empty($path) and !empty($targetfile)) {
     $path = dirname($targetfile) . '/';
@@ -190,6 +190,7 @@ if (empty($path) and empty($sp['uploadtv'])) {
 }
 
 if (!empty($sp['uploadtv'])) {
+    /* @var $tvObj modTemplateVar */
     $tvObj = $modx->getobject('modTemplateVar',array('name'=>$sp['uploadtv']));
     $path = $modx->getOption('base_path',null,'') . $tvObj->getValue();
 } else {
@@ -218,7 +219,7 @@ if ($presubmitError) {
 
 // Generate a unique code for this form so if there are multiple
 // FileUpload snippets used on one page we know if it was our form that was submitted
-$hash = md5($maxsize.$uploadgroup.$extensions.$path);
+$hash = md5($maxsize.$uploadgroups.$extensions.$path);
 
 // Check if something was uploaded and move it to the correct place.
 if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
@@ -238,10 +239,10 @@ if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
       $fileoutput = $modx->lexicon("fu_error_{$_FILES['userfile']['error'][$i]}");
     } else {
       //Handle the uploaded file
-    if ($this->targetfile == '') {
+    if ($targetfile == '') {
         $uploadfile = $path.basename($_FILES['userfile']['name'][$i]);
     } else {
-        $uploadfile = $path.basename($this->targetfile);
+        $uploadfile = $path.basename($targetfile);
     }
 
       if ($extensions!='' && !in_array(pathinfo($uploadfile, PATHINFO_EXTENSION), $ext_array)) {

@@ -1,5 +1,10 @@
 Changelog for FileUpload
 
+FileUpload 1.0.4
+ - fixed bug with $this
+ - fixed bug with $uploadgroups
+ - prevented E_NOTICE warnings in build
+
 FileUpload 1.0.3
  - Fixed potential problem with function name collision
 
@@ -8,9 +13,7 @@ FileUpload 1.0.2
  - added Dutch translation (jhegeman)
 
 FileUpload 1.0.1
-----------------
  - Added allowoverwrite property to allow overwriting existing files
 
 FileUpload 1.0.0
-----------------
-Initial Version
+ - Initial Version

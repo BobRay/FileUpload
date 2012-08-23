@@ -30,7 +30,7 @@
 /* Set package info be sure to set all of these */
 define('PKG_NAME','FileUpload');
 define('PKG_NAME_LOWER','fileupload');
-define('PKG_VERSION','1.0.3');
+define('PKG_VERSION','1.0.4');
 define('PKG_RELEASE','pl');
 define('PKG_CATEGORY','FileUpload');
 
@@ -70,15 +70,27 @@ $sources= array (
 );
 unset($root);
 
+/* not used -- here to prevent E_NOTICE warnings */
+if (!defined('MODX_BASE_URL')) {
+    define('MODX_BASE_URL', 'http://localhost/addons/');
+    define('MODX_MANAGER_URL', 'http://localhost/addons/manager/');
+    define('MODX_ASSETS_URL', 'http://localhost/addons/assets/');
+    define('MODX_CONNECTORS_URL', 'http://localhost/addons/connectors/');
+}
+
 /* Instantiate MODx -- if this require fails, check your
  * _build/build.config.php file
  */
+
+
 require_once $sources['build'].'build.config.php';
 require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
 $modx= new modX();
 $modx->initialize('mgr');
 $modx->setLogLevel(xPDO::LOG_LEVEL_INFO);
 $modx->setLogTarget(XPDO_CLI_MODE ? 'ECHO' : 'HTML');
+
+
 
 /* load builder */
 $modx->loadClass('transport.modPackageBuilder','',false, true);
