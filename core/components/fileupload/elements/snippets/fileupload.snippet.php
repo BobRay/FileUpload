@@ -244,7 +244,7 @@ if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
     } else {
         $uploadfile = $path.basename($targetfile);
     }
-
+       //substr($file,0,strrpos($file,'.'))
       if ($extensions!='' && !in_array(pathinfo($uploadfile, PATHINFO_EXTENSION), $ext_array)) {
         // Extension is not allowed
         $fileoutput = $modx->lexicon('fu_error_extension');
