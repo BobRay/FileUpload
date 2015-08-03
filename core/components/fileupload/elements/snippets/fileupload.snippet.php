@@ -192,7 +192,7 @@ if (empty($path) and empty($sp['uploadtv'])) {
 if (!empty($sp['uploadtv'])) {
     /* @var $tvObj modTemplateVar */
     $tvObj = $modx->getobject('modTemplateVar',array('name'=>$sp['uploadtv']));
-    $path = $modx->getOption('base_path',null,'') . $tvObj->getValue();
+    $path = $modx->getOption('base_path',null,'') . $tvObj->getValue($modx->resource->get('id'));
 } else {
     $path = $modx->config['base_path'].$path;
 }
