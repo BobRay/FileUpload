@@ -41,6 +41,7 @@ $hasAssets = true; /* Transfer the files in the assets dir. */
 $hasCore = true;   /* Transfer the files in the core dir. */
 $hasSnippets = true;
 $hasChunks = true;
+$hasPlugins = true;
 
 /******************************************
  * Work begins here
@@ -103,6 +104,7 @@ $builder->registerNamespace(PKG_NAME_LOWER,false,true,'{core_path}components/'.P
  * have the name of your package
  */
 
+/** @var $category modCategory */
 $category= $modx->newObject('modCategory');
 $category->set('id',1);
 $category->set('category',PKG_CATEGORY);
@@ -116,6 +118,18 @@ if ($hasSnippets) {
         $category->addMany($snippets, 'Snippets');
     } else { $modx->log(modX::LOG_LEVEL_FATAL,'Adding snippets failed.'); }
 }
+
+/* add plugins */
+if ($hasPlugins) {
+    $modx->log(modX::LOG_LEVEL_INFO, 'Adding in plugins.');
+    $plugins = include $sources['data'] . 'transport.plugins.php';
+    if (is_array($plugins)) {
+        $category->addMany($plugins, 'Plugins');
+    } else {
+        $modx->log(modX::LOG_LEVEL_FATAL, 'Adding plugins failed.');
+    }
+}
+
 
 if ($hasChunks) { /* add chunks  */
     $modx->log(modX::LOG_LEVEL_INFO,'Adding in chunks.');
@@ -146,6 +160,14 @@ if ($hasSnippets) {
         );
 }
 
+if ($hasPlugins) {
+    $attr[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['Plugins'] = array(
+        xPDOTransport::PRESERVE_KEYS => false,
+        xPDOTransport::UPDATE_OBJECT => true,
+        xPDOTransport::UNIQUE_KEY => 'name',
+    );
+}
+
 if ($hasChunks) {
     $attr[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['Chunks'] = array(
             xPDOTransport::PRESERVE_KEYS => false,
@@ -159,7 +181,16 @@ if ($hasChunks) {
  */
 $vehicle = $builder->createVehicle($category,$attr);
 
+$file = $sources['resolvers'] . 'plugin' . '.resolver.php';
+if (file_exists($file)) {
+    $vehicle->resolve('php', array(
+        'source' => $sources['resolvers'] . 'plugin' . '.resolver.php',
+    ));
+    $modx->log(modX::LOG_LEVEL_INFO, 'Adding plugin resolver.');
+} else {
+    $modx->log(modX::LOG_LEVEL_INFO, 'Failed to package plugin resolver.');
 
+}
 
 /* This section transfers every file in the local
  mycomponents/mycomponent/assets directory to the
