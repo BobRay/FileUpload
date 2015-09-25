@@ -2,11 +2,13 @@
     This snippet is for use with MODx Revolution. FileUpload can be used to upload a variable number of files in the front end of your site. FileUpload is based on Michel van de Wetering's FileUpload snippet for MODx Evolution. It has been refactored for MODx Revolution and some new capabilities have been added.
 </p>
 
+<br />
 <h3>Installing FileUpload for MODx Revolution</h3>
 
 <p>
 Go to System | Package Management on the main menu in the MODx Manager and click on the "Download Extras" button. That will take you to the Revolution Repository (AKA Web Transport Facility). Put FileUpload in the search box and press Enter. Click on the "Download" button, and when it changes to "Downloaded," click on the "Finish" button. That should bring you back to your Package Management grid. Right click on FileUpload and select "Install Package." The FileUpload snippet should now be installed.</p>
 
+<br />
 <h3>Using FileUpload</h3>
 
 <p>
@@ -33,6 +35,7 @@ You can control the number of file upload fields shown on each form with the <fi
 ]]
 </fixedpre>
 </pre>
+<br/>
 <h3>Using a TV to specify the path</h3>
 <p>
 Rather than supplying a <fixedpre>&path property</fixedpre>, you can put the upload path in a template variable and send the name of that TV in the <fixedpre>&uploadtv</fixedpre> property.
@@ -55,9 +58,25 @@ Rather than supplying a <fixedpre>&path property</fixedpre>, you can put the upl
 
 <p>Each page that uses the snippet will then have its own upload path, depending on the setting of the TV for that page.</p>
 
+<br/>
+
 <h3>File Size and File Extension Issues</h3>
 <p>The <fixedpre>&maxsize</fixedpre> property limits the size of uploaded files, though any upload limit set in php.ini will also be respected. If you leave out this property, the upload_maxsize System Setting will be used. The <fixedpre>&extensions</fixedpre> property specifies a comma-separated list of the allowable extensions for uploaded files. The list should have no spaces and no periods. If omitted, the value from the upload_files System Setting will be used. Note that the default value of upload_files is a long list, but at this writing, many of the standard image types are missing.
 </p>
+
+<br/>
+
+<h3>FileUpload Plugin</h3>
+
+<p>FileUpload fires the OnFileManagerUpload System Event. It sends information on the uploads. For each attempted file, it includes the name, size, type, tmp_name, extension, and error. If the upload was successful, error will be 0, if not it will contain an error message. The information also includes the directory to which the files were intended to be uploaded.</p>
+
+<p>The package includes an example plugin that shows how to process the upload information. The plugin is disabled. To create your own plugin, duplicate the example, make sure it's connected to the OnFileManagerUpload event, and enable it. Don't forget that last step.</p>
+
+<p>You can do whatever you like in the plugin. One common use is to email someone the information about the uploaded files. You could also create a file containing a log of uploaded files.</p>
+
+<p>Note that the format of the information is not the same as that sent from other MODX code that fires the OnFileManagerUpload event (it's much more convenient to work with). The code at the top of the plugin prevents it from executing unless the Event was fired by the FileUpload snippet. Be sure not to remove it.</p>
+
+<br/>
 
 <h3>FileUpload Properties</h3>
 
@@ -149,4 +168,5 @@ The file: /assets/components/fileupload/css/fileupload.css contains the CSS for 
 <pre><fixedpre>
 &cssfile=`myfileupload.css`
 </fixedpre></pre>
+
 <p>&nbsp;</p>

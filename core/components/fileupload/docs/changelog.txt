@@ -1,5 +1,8 @@
 Changelog for FileUpload
 
+FileUpload 1.1.0
+ - fire OnFileManagerUpload to allow plugins to process the upload information
+
 FileUpload 1.0.4
  - fixed bug with $this
  - fixed bug with $uploadgroups
