@@ -30,6 +30,7 @@ if (! isset($fromfileupload)) {
 }
 
 /** @var  $path string */
+/** @var $modx modX */
 
 $directory = $path;
 
@@ -41,14 +42,19 @@ foreach($files as $file) {
     $tmp_name = $file['tmp_name'];
     $error = $file['error'];
 
-    /* Your code here. Since $file is an associative array, you can have a Tpl chunk with
-     * placeholders and use $output .= $modx->getChunk('MyChunk', $file);
+    /* Your code below. This is an example that writes results to the MODX error log.
+
+     * Note: Since $file is an associative array, you can have a Tpl chunk with
+     * placeholders and use $msg .= $modx->getChunk('MyChunk', $file) for sending
+     * emails or making your own upload log;
      */
 
-    if ($error == 0) {
+    if (empty($error)) {
         /* Success */
+        $modx->log(modX::LOG_LEVEL_ERROR, 'Success: ' . $name);
     } else {
         /* Failure -- $error contains the error message */
+        $modx->log(modX::LOG_LEVEL_ERROR, 'ERROR: ' . $name . ' -- ' . $error);
     }
 }
 
