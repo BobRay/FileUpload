@@ -249,7 +249,7 @@ if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
             'type' => $_FILES['userfile']['type'][$i],
             'tmp_name' => $_FILES['userfile']['tmp_name'][$i],
             'size' => $_FILES['userfile']['size'][$i],
-            'extension' => '.' . substr($name, strrpos($name, '.')),
+            'extension' => substr($name, strrpos($name, '.')),
             'error' => 0.
         );
         /* Set error or success for file */
