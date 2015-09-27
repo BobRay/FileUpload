@@ -84,6 +84,10 @@ if ($object->xpdo) {
                         continue;
                     }
                     $pluginEvent = $modx->getObject('modPluginEvent', array('pluginid'=>$plugin->get('id'),'event' => $fields['event']) );
+
+                    if (! $pluginEvent) {
+                        $pluginEvent = $modx->newObject('modPluginEvent');
+                    }
                     
                     if ($pluginEvent) {
                         $pluginEvent->set('event', $fields['event']);
@@ -95,11 +99,13 @@ if ($object->xpdo) {
                             $pluginEvent->set('propertyset', 0);
                         }
 
+                        if (!$pluginEvent->save()) {
+                            $modx->log(xPDO::LOG_LEVEL_ERROR, 'Unknown error saving pluginEvent for ' .
+                                $fields['plugin'] . ' - ' . $fields['event']);
+                        }
+
                     }
-                    if (! $pluginEvent->save()) {
-                        $modx->log(xPDO::LOG_LEVEL_ERROR, 'Unknown error saving pluginEvent for ' .
-                            $fields['plugin'] . ' - ' . $fields['event']);
-                    }
+
                 }
             }
             break;
