@@ -30,7 +30,7 @@
 /* Set package info be sure to set all of these */
 define('PKG_NAME','FileUpload');
 define('PKG_NAME_LOWER','fileupload');
-define('PKG_VERSION','1.1.0');
+define('PKG_VERSION','1.2.0');
 define('PKG_RELEASE','pl');
 define('PKG_CATEGORY','FileUpload');
 
