@@ -6,7 +6,7 @@
 <h3>Installing FileUpload for MODx Revolution</h3>
 
 <p>
-Go to System | Package Management on the main menu in the MODx Manager and click on the "Download Extras" button. That will take you to the Revolution Repository (AKA Web Transport Facility). Put FileUpload in the search box and press Enter. Click on the "Download" button, and when it changes to "Downloaded," click on the "Finish" button. That should bring you back to your Package Management grid. Right click on FileUpload and select "Install Package." The FileUpload snippet should now be installed.</p>
+Go to Extras | Installer (Package Management) on the main menu in the MODx Manager and click on the "Download Extras" button. That will take you to the Revolution Repository (AKA Web Transport Facility). Put FileUpload in the search box and press Enter. Click on the "Download" button, and when the download is finished, click on the "Back to Package Manager" button. That should bring you back to your Package Management grid. Find FileUpload in the grid and click on the "Install" button. Follow the prompts to install FileUpload.</p>
 
 <br />
 <h3>Using FileUpload</h3>
@@ -23,7 +23,7 @@ You can place a file upload form on any page by inserting the following tag:</p>
 </p>
 
 <p>
-You can control the number of file upload fields shown on each form with the <fixedpre>&filefields</fixedpre> property. There is no limit on the number of fields. The default is 5. You restrict the groups who can upload with the <fixedpre>&uploadgroups</fixedpre> property. If you leave out that property, anyone can upload. The <fixedpre>&path</fixedpre> property specifies the directory where the uploaded files will be placed. The path you specify will be appended to the value in the assets_path System Setting and your path should not have a slash at the beginning. If you leave out the <fixedpre>&path property</fixedpre>, the files will go to assets/uploads/ directory. Here is an example using those properties:
+You can control the number of file upload fields shown on each form with the <code>&filefields</code> property. There is no limit on the number of fields. The default is 5. You restrict the groups who can upload with the <code>&uploadgroups</code> property. If you leave out that property, anyone can upload. The <code>&path</code> property specifies the directory where the uploaded files will be placed. The path you specify will be appended to the value in the assets_path System Setting and your path should not have a slash at the beginning. If you leave out the <code>&path</code> property, the files will go to assets/uploads/ directory. Here is an example using those properties:
 </p>
 
 <pre>
@@ -38,7 +38,7 @@ You can control the number of file upload fields shown on each form with the <fi
 <br/>
 <h3>Using a TV to specify the path</h3>
 <p>
-Rather than supplying a <fixedpre>&path property</fixedpre>, you can put the upload path in a template variable and send the name of that TV in the <fixedpre>&uploadtv</fixedpre> property.
+Rather than supplying a <code>&path</code> property, you can put the upload path in a template variable and send the name of that TV in the <code>&uploadtv</code> property.
 </p>
 
 <p>For example, create a TV called "UploadPath" and attach it to the template for the pages where the snippet will be used. Edit those pages, and on the TV tab, set the upload path for that TV. The upload path you specify will be appended to the MODX base path. It should have a slash at the end, but not at the beginning.</p>
@@ -59,9 +59,15 @@ Rather than supplying a <fixedpre>&path property</fixedpre>, you can put the upl
 <p>Each page that uses the snippet will then have its own upload path, depending on the setting of the TV for that page.</p>
 
 <br/>
+<h3>Directory Creation and Permissions</h3>
 
+<p>If you specify a path for the files that does not exist, the <code>&createpath</code> property determines whether the directories for the path will be created or not. The default is not to create the path, which is somewhat more secure, but you may choose to override that if you want Manager users to be able to create file directories.</p>
+
+<p>The <code>&dirpermission</code> property sets the permission for any newly created directories. The default is <code>0755</code>.</p>
+
+<br/>
 <h3>File Size and File Extension Issues</h3>
-<p>The <fixedpre>&maxsize</fixedpre> property limits the size of uploaded files, though any upload limit set in php.ini will also be respected. If you leave out this property, the upload_maxsize System Setting will be used. The <fixedpre>&extensions</fixedpre> property specifies a comma-separated list of the allowable extensions for uploaded files. The list should have no spaces and no periods. If omitted, the value from the upload_files System Setting will be used. Note that the default value of upload_files is a long list, but at this writing, many of the standard image types are missing.
+<p>The <code>&maxsize</code> property limits the size of uploaded files, though any upload limit set in php.ini will also be respected. If you leave out this property, the upload_maxsize System Setting will be used. The <code>&extensions</code> property specifies a comma-separated list of the allowable extensions for uploaded files. The list should have no spaces and no periods. If omitted, the value from the upload_files System Setting will be used. Note that the default value of upload_files is a long list, but at this writing, some of the standard image types are missing.
 </p>
 
 <br/>
@@ -157,6 +163,11 @@ Rather than supplying a <fixedpre>&path property</fixedpre>, you can put the upl
             <td>&amp;targetfile</td>
             <td>Allows uploading a single specified file.</td>
             <td>``</td>
+        </tr>
+        <tr>
+            <td>&amp;dirpermission</td>
+            <td>Permission for created directories</td>
+            <td>`0755`</td>
         </tr>
     </tbody>
 </table>
