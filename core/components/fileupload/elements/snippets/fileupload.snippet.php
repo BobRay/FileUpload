@@ -126,6 +126,8 @@ if (empty($createpath)) {
     $createpath = false;
 }
 
+$dirPermission = (int) $modx->getOption('dirpermission', $sp, 0755, true);
+
 
 $filefields = $modx->getOption('filefields', $sp, '');
 $filefields = $filefields == 0 ? 5 : $filefields;
@@ -135,16 +137,17 @@ $allowoverwrite = $modx->getOption('allowoverwrite', $sp, '');
 
 // Function taken from php.net
 if (!function_exists('RecursiveMkdir')) {
-    function RecursiveMkdir($path) {
+    function RecursiveMkdir($path, $dirPermission) {
         // This function creates the specified directory using mkdir().  Note
         // that the recursive feature on mkdir() is broken with PHP 5.0.4 for
         // Windows, so we have to do the recursion here.
         if (!file_exists($path)) {
             // The directory doesn't exist.  Recurse, passing in the parent
             // directory so that it gets created.
-            RecursiveMkdir(dirname($path));
-
-            mkdir($path, 0777);
+            RecursiveMkdir(dirname($path), $dirPermission);
+            $oldumask = umask(0);
+            mkdir($path, $dirPermission);
+            umask($oldumask);
         }
     }
 }
@@ -200,7 +203,7 @@ if (!empty($sp['uploadtv'])) {
 // Check if the path exists
 if (!is_dir($path)) {
     if ($createpath) {
-        RecursiveMkdir($path);
+        RecursiveMkdir($path, $dirPermission);
     } else {
         fuSetError('fu_error_invalid_path', $presubmitError);
     }
