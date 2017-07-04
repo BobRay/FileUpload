@@ -2,7 +2,7 @@
 
 /**
  * Default properties for the FileUpload snippet
- * @author Bob Ray <http://bobsguides.com>
+ * @author Bob Ray <https://bobsguides.com>
  * 1/1/11
  *
  * @package fileupload

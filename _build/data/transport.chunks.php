@@ -1,7 +1,7 @@
 <?php
 /**
  * FileUpload transport chunks
- * @author Bob Ray <http://bobsguides.com>
+ * @author Bob Ray <https://bobsguides.com>
  * 3/15/11
  *
  * FileUpload is free software; you can redistribute it and/or modify it

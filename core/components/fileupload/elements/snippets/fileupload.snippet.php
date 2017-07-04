@@ -4,7 +4,7 @@
  * FileUpload
  *
  * @author Michel van de Wetering
- * @author Bob Ray <http://bobsguides.com>
+ * @author Bob Ray <https://bobsguides.com>
  * 3/15/11
  *
  * FileUpload is free software; you can redistribute it and/or modify it
@@ -23,7 +23,7 @@
  * @package fileupload
  */
 /**
- * MODx FileUpload Snippet
+ * MODX FileUpload Snippet
  *
  * Description: Allows upload of multiple files
  *
@@ -34,7 +34,7 @@
 /*
 
  * Original snippet by Michel van de Wetering
- * Refactored for MODx Revolution by Bob Ray
+ * Refactored for MODX Revolution by Bob Ray
  *
  * targetfile property and Dutch translation contributed by Jeroen Hegeman
  *

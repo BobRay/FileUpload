@@ -1,8 +1,8 @@
 <?php
 /**
  * FileUpload transport snippets
- * Copyright 2011 Your Name <you@yourdomain.com>
- * @author Your Name <you@yourdomain.com>
+ * Copyright 2011-2017 Bob Ray <https://bobsguides.com>
+ * @author Bob Ray
  * 1/1/11
  *
  * FileUpload is free software; you can redistribute it and/or modify it

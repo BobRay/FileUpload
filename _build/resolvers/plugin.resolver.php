@@ -2,7 +2,7 @@
 /**
 * Resolver to connect plugins to system events for Example extra
 *
-* Copyright 2013 by Bob Ray <http://bobsguides.com>
+* Copyright 2013-2017 Bob Ray <https://bobsguides.com>
 * Created on 06-18-2014
 *
  * Example is free software; you can redistribute it and/or modify it under the

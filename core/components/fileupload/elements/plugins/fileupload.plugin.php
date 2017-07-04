@@ -1,6 +1,6 @@
 <?php
 /**
- *  Copyright 2015 by Bob Ray
+ *  Copyright 2015-2017 Bob Ray <https://bobsguides.com>
  *
  * fileupload plugin
  *

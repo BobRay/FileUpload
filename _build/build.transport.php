@@ -79,7 +79,7 @@ if (!defined('MODX_BASE_URL')) {
     define('MODX_CONNECTORS_URL', 'http://localhost/addons/connectors/');
 }
 
-/* Instantiate MODx -- if this require fails, check your
+/* Instantiate MODX -- if this require fails, check your
  * _build/build.config.php file
  */
 

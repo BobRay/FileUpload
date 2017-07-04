@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright 2015 BobRay <http://bobsguides.com>
+ * Copyright 2015-2017 BobRay <https://bobsguides.com>
  * @author Bob Ray
  *
  * FileUpload is free software; you can redistribute it and/or modify it
