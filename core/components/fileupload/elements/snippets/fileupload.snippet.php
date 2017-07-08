@@ -5,6 +5,7 @@
  *
  * @author Michel van de Wetering
  * @author Bob Ray <https://bobsguides.com>
+ * @Copyright 2015-2017 Bob Ray <https://bobsguides.com>
  * 3/15/11
  *
  * FileUpload is free software; you can redistribute it and/or modify it
