@@ -84,6 +84,8 @@
  * @property allowoverwrite (boolean) - Set to `1` to allow overwriting existing files.
  *
  * @property targetfile (string) - Name of the target file for the upload; default: ''
+ * 
+ * @property mediasource (int) - ID of the media source that should be used; default: null 
  */
 
 /* Setup the defaults */
@@ -135,6 +137,8 @@ $filefields = $filefields == 0 ? 5 : $filefields;
 
 
 $allowoverwrite = $modx->getOption('allowoverwrite', $sp, '');
+
+$mediaSource = (int) $modx->getOption('mediasource', $sp, null);
 
 // Function taken from php.net
 if (!function_exists('RecursiveMkdir')) {
@@ -324,11 +328,16 @@ if (isset($_FILES['userfile']) && $_POST['formid'] == $hash) {
 
     }
 
+    // Get media source, with fallback to default
+    $modx->loadClass('sources.modMediaSource');
+    $source = modMediaSource::getDefaultSource($modx, $mediaSource);
+
     // Invoke OnFileManagerUpload Event
     $info = array(
         'files' => $fileArray,
         'directory' => $path,
         'fromfileupload' => true,
+        'source' => $source
     );
 
     $modx->invokeEvent('OnFileManagerUpload', $info);
