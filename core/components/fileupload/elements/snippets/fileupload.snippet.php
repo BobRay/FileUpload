@@ -163,6 +163,10 @@ if (!function_exists('fuSetError')) {
 $output = '';
 $presubmitError = false;
 
+/* Make it run in either MODX 2 or MODX 3 */
+$prefix = $modx->getVersionData()['version'] >= 3
+? 'MODX\Revolution\\'
+: '';
 
 //$canupload = $uploadgroups=='' || $modx->isMemberOfWebGroup(explode(",", $uploadgroups));
 $canupload = empty($uploadgroups) || $modx->user->isMember($uploadgroups);
@@ -194,7 +198,7 @@ if (empty($path) and empty($sp['uploadtv'])) {
 
 if (!empty($sp['uploadtv'])) {
     /* @var $tvObj modTemplateVar */
-    $tvObj = $modx->getobject('modTemplateVar', array('name' => $sp['uploadtv']));
+    $tvObj = $modx->getobject($prefix . 'modTemplateVar', array('name' => $sp['uploadtv']));
     $path = $modx->getOption('base_path', null, '') . $tvObj->getValue($modx->resource->get('id'));
 } else {
     $path = $modx->config['base_path'] . $path;

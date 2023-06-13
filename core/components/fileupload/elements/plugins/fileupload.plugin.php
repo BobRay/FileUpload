@@ -33,7 +33,7 @@ if (! isset($fromfileupload)) {
 /** @var $modx modX */
 
 $directory = $path;
-
+/** @var $files array */
 foreach($files as $file) {
     $name = $file['name'];
     $type = $file['type'];
