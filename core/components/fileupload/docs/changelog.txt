@@ -1,6 +1,6 @@
 Changelog for FileUpload
 
-FileUpload 1.3.0
+FileUpload 1.3.2
  - Updates for MODX 3
 
 FileUpload 1.2.0
