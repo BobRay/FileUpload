@@ -3,7 +3,7 @@ Snippets: FileUpload
 --------------------
 Author: Michel van de Wetering
 Author: Bob Ray <https://bobsguides.com>
-Copyright 2015-2017 Bob Ray <https://bobsguides.com>
+Copyright 2015-2023 Bob Ray <https://bobsguides.com>
 
 FileUpload is Fully updated for MODX 3
 

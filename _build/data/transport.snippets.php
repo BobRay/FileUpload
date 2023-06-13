@@ -1,7 +1,7 @@
 <?php
 /**
  * FileUpload transport snippets
- * Copyright 2011-2017 Bob Ray <https://bobsguides.com>
+ * Copyright 2011-2023 Bob Ray <https://bobsguides.com>
  * @author Bob Ray
  * 1/1/11
  *
