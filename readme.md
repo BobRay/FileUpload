@@ -11,8 +11,9 @@ FileUpload Extra for MODX Revolution
 
 **Questions about using FileUpload** [MODX Forums](https://forums.modx.com)
 
-FileUpload is a Revolution version of Michel van de Wetering's FileUpoad Snippet for MODX
-Evolution. It presents a variable number of file upload input fields.
+FileUpload is a Revolution version of Michel van de Wetering's FileUpoad Snippet for MODX Evolution. It presents a variable number of file upload input fields.
+
+FileUpload is Fully updated for MODX 3
 
 The snippet can be limited to users of particular user groups. The path for
 the uploaded files can be specified in the snippet parameters or contained

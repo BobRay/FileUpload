@@ -1,5 +1,8 @@
 Changelog for FileUpload
 
+FileUpload 1.3.0
+ - Updates for MODX 3
+
 FileUpload 1.2.0
  - Add &dirpermission property for setting directory permissions
  - Updates to docs
