@@ -48,19 +48,18 @@ $newEvents = array ();
 
  /* @var modTransportPackage $transport */
 
-/* Make it run in either MODX 2 or MODX 3 */
- $prefix = $modx->getVersionData()['version'] >= 3
-   ? 'MODX\Revolution\\'
-   : '';
-
-
  if ($transport) {
      $modx =& $transport->xpdo;
  } else {
      $modx =& $object->xpdo;
  }
 
-$modx =& $object->xpdo;
+/* Make it run in either MODX 2 or MODX 3 */
+$prefix = $modx->getVersionData()['version'] >= 3
+    ? 'MODX\Revolution\\'
+    : '';
+
+
 switch ($options[xPDOTransport::PACKAGE_ACTION]) {
     case xPDOTransport::ACTION_INSTALL:
     case xPDOTransport::ACTION_UPGRADE:
